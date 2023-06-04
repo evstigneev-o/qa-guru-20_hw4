@@ -22,6 +22,32 @@ import static com.codeborne.selenide.Selenide.open;
  */
 
 public class SoftAssertionsTest {
+    String junit5Example = """
+            @ExtendWith({SoftAssertsExtension.class})
+            class Tests {
+              @Test
+              void test() {
+                Configuration.assertionMode = SOFT;
+                open("page.html");
+
+                $("#first").should(visible).click();
+                $("#second").should(visible).click();
+              }
+            }""";
+    String junit5RegisterExtensionExample = """
+            class Tests {
+              @RegisterExtension\s
+              static SoftAssertsExtension softAsserts = new SoftAssertsExtension();
+
+              @Test
+              void test() {
+                Configuration.assertionMode = SOFT;
+                open("page.html");
+
+                $("#first").should(visible).click();
+                $("#second").should(visible).click();
+              }
+            }""";
 
     @BeforeAll
     public static void setUp() {
@@ -39,6 +65,8 @@ public class SoftAssertionsTest {
         $("#wiki-tab").click();
         $("#wiki-pages-filter").setValue("soft");
         $(byText("SoftAssertions")).click();
-        $(".markdown-body").$("#user-content-3-using-junit5-extend-test-class").parent().sibling(0).shouldHave(Condition.text("@Test"));
+        $(".markdown-body").$("#user-content-3-using-junit5-extend-test-class").parent().sibling(0).shouldHave(Condition.text(junit5Example));
+        $(".markdown-body").$("#user-content-3-using-junit5-extend-test-class").parent().sibling(2).shouldHave(Condition.text(junit5RegisterExtensionExample));
+
     }
 }
