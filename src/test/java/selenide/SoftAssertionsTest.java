@@ -60,7 +60,7 @@ public class SoftAssertionsTest {
     }
 
     @Test
-    public void SoftAssertionsShouldHaveJUnit5Examples() {
+    public void softAssertionsShouldHaveJUnit5Examples() {
         open("/selenide/selenide");
         $("#wiki-tab").click();
         $("#wiki-pages-filter").setValue("soft");
